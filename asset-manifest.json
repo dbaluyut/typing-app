@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/typing-app/static/css/main.e8fc957c.chunk.css",
+    "main.js": "/typing-app/static/js/main.1e76aa0c.chunk.js",
+    "main.js.map": "/typing-app/static/js/main.1e76aa0c.chunk.js.map",
+    "runtime-main.js": "/typing-app/static/js/runtime-main.550e62bc.js",
+    "runtime-main.js.map": "/typing-app/static/js/runtime-main.550e62bc.js.map",
+    "static/js/2.154f881c.chunk.js": "/typing-app/static/js/2.154f881c.chunk.js",
+    "static/js/2.154f881c.chunk.js.map": "/typing-app/static/js/2.154f881c.chunk.js.map",
+    "static/js/3.82aca8d9.chunk.js": "/typing-app/static/js/3.82aca8d9.chunk.js",
+    "static/js/3.82aca8d9.chunk.js.map": "/typing-app/static/js/3.82aca8d9.chunk.js.map",
+    "index.html": "/typing-app/index.html",
+    "static/css/main.e8fc957c.chunk.css.map": "/typing-app/static/css/main.e8fc957c.chunk.css.map",
+    "static/js/2.154f881c.chunk.js.LICENSE.txt": "/typing-app/static/js/2.154f881c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.550e62bc.js",
+    "static/js/2.154f881c.chunk.js",
+    "static/css/main.e8fc957c.chunk.css",
+    "static/js/main.1e76aa0c.chunk.js"
+  ]
+}
