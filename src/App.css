@@ -1,0 +1,58 @@
+.App {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+}
+
+.Character-current {
+  background-color: #02b894;
+  /* padding: 4px; */
+}
+
+.Character-out {
+  color: silver;
+}
+
+.container {
+  width: 80%;
+  /* height: 40%; */
+  /* border: 1px solid red; */
+  background: #53ffdd;
+  position: relative;
+  padding: 2rem;
+  color: black;
+  /* text-shadow: 2px 2px 5px rgb(100, 100, 100); */
+}
+
+p {
+  font-size: 40px;
+  /* position: absolute; */
+  /* top: -2ch; */
+}
+
+.outgoing {
+  /* text-align: right; */
+  display: flex;
+  justify-content: flex-end;
+  color: silver;
+  position: absolute;
+  bottom: 2ch;
+}
+
+.outgoingContainer {
+  height: 8ch;
+  border: 1px solid red;
+  overflow: hidden;
+  position: relative;
+}
+
+.incomingContainer {
+  height: 100px;
+  overflow: scroll;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
