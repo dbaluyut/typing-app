@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react'
 import useSound from 'use-sound'
-import Sound from 'react-sound'
+import ReactHowler from 'react-howler'
 
 import useKeyPress from './hooks/useKeyPress'
 // import useStickyState from './hooks/useStickyState'
 // import getAnimeQuote from './typing-scripts/getAnimeQuote'
 import { script } from './typing-scripts/script1'
 import bgMusic from './bg-music/test2.mp3'
-
-import axios from 'axios'
+import BgVideo from './components/BgVideo'
+// import axios from 'axios'
 
 import './App.css'
-import BgMusic from './bg-music/BgMusic'
+// import BgMusic from './bg-music/BgMusic'
 
 function App() {
   window.addEventListener('keydown', function (e) {
@@ -20,21 +20,19 @@ function App() {
     }
   })
 
-  // console.log(typeof test1);
   // states
 
   const [par, setPar] = useState(script)
-
+  const [index, setIndex] = useState(1)
   // running count state
   const [runningCount, setRunningCount] = useState(0)
   const [ghostCount, setGhostCount] = useState(0)
   const [lives, setLives] = useState(8)
-  const [livesGoal, setLivesGoal] = useState(1)
+  // const [livesGoal, setLivesGoal] = useState(1)
   const [quote, setQuote] = useState('')
-
+  const [startGame, setStartGame] = useState(false)
   // sound
-  // const [play, { pause, isPlaying }] = useSound(bgMusic)
-  // const [playBg, setPlayBg] = useState(false)
+
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLoading, setIsloading] = useState(true)
   useEffect(() => {
@@ -44,13 +42,17 @@ function App() {
       // setLivesGoal((livesGoal) => livesGoal + 2)
     }
 
-    if (lives <= 0) {
+    if (lives <= 0 || !isLoading) {
       console.log('pause')
       setIsPlaying(false)
-    } else {
+    } else if (lives > 0 && isLoading) {
       setIsPlaying(true)
     }
   }, [lives, ghostCount])
+
+  // useEffect(() => {
+  //   isPlaying ? playTest() : stop()
+  // }, [isPlaying])
 
   const [outgoingChars, setOutgoingChars] = useState('')
   const [currentChar, setCurrentChar] = useState(
@@ -66,73 +68,100 @@ function App() {
     let updatedIncomingChars = incomingChars
 
     //2
-    if (key === currentChar) {
-      setRunningCount(runningCount + 1)
-      setGhostCount(ghostCount + 1)
-      //3
-      // if (leftPadding.length > 0) {
-      //   setLeftPadding(leftPadding.substring(1));
-      // }
-      //4
-      updatedOutgoingChars += currentChar
-      setOutgoingChars(updatedOutgoingChars)
+    if (startGame) {
+      if (key === currentChar) {
+        setRunningCount(runningCount + 1)
+        setGhostCount(ghostCount + 1)
+        //3
+        // if (leftPadding.length > 0) {
+        //   setLeftPadding(leftPadding.substring(1));
+        // }
+        //4
+        updatedOutgoingChars += currentChar
+        setOutgoingChars(updatedOutgoingChars)
 
-      //5
-      setCurrentChar(incomingChars.charAt(0))
+        //5
+        setCurrentChar(incomingChars.charAt(0))
 
-      //6
-      updatedIncomingChars = incomingChars.substring(1)
+        //6
+        updatedIncomingChars = incomingChars.substring(1)
 
-      setIncomingChars(updatedIncomingChars)
-    } else {
-      setRunningCount(0)
-      setGhostCount(0)
-      setLives(lives - 1)
-    }
-
-    let greenBox = document.querySelector(
-      '.incomingContainer'
-    )
-
-    let cursorBox = document.querySelector('#cursor')
-    let cbOffset = cursorBox.offsetTop //32
-    let lastOffset = 32 //32
-    let scrollBy = 0
-    // if (cbOffset > lastOffset) {
-    //   let scrollAm = cbOffset - lastOffset;
-    //   scrollBy += scrollAm;
-    //   lastOffset += scrollAm;
-    //   greenBox.scrollTop = scrollBy;
-    // }
-
-    function scrollBy1Line(refEl, parentEl) {
-      let currentOffset = refEl.offsetTop
-      if (currentOffset > lastOffset) {
-        let scrollAmount = currentOffset - lastOffset
-        scrollBy += scrollAmount
-        lastOffset += scrollBy
-        parentEl.scrollTop = scrollBy
+        setIncomingChars(updatedIncomingChars)
+      } else {
+        setRunningCount(0)
+        setGhostCount(0)
+        setLives(lives - 1)
       }
+
+      let greenBox = document.querySelector(
+        '.incomingContainer'
+      )
+
+      let cursorBox = document.querySelector('#cursor')
+      let cbOffset = cursorBox.offsetTop //32
+      let lastOffset = 32 //32
+      let scrollBy = 0
+      // if (cbOffset > lastOffset) {
+      //   let scrollAm = cbOffset - lastOffset;
+      //   scrollBy += scrollAm;
+      //   lastOffset += scrollAm;
+      //   greenBox.scrollTop = scrollBy;
+      // }
+
+      function scrollBy1Line(refEl, parentEl) {
+        let currentOffset = refEl.offsetTop
+        if (currentOffset > lastOffset) {
+          let scrollAmount = currentOffset - lastOffset
+          scrollBy += scrollAmount
+          lastOffset += scrollBy
+          parentEl.scrollTop = scrollBy
+        }
+      }
+      scrollBy1Line(cursorBox, greenBox)
     }
-    scrollBy1Line(cursorBox, greenBox)
   })
+
+  const [playTest, { stop }] = useSound(bgMusic)
+
+  function handleStart() {
+    // playTest()
+    setStartGame(true)
+  }
+
   return (
     <div className='App'>
+      {/* 
+      <div id='bgContainer'>
+        <iframe
+          id='bgVideo'
+          frameborder='0'
+          height='100%'
+          width='100%'
+          src='https://youtube.com/embed/VCVQGKvXBPU?autoplay=1&controls=1&showinfo=0&autohide=1'
+        ></iframe>
+      </div> */}
+      <div id='vidWrapper'>
+        <BgVideo index={index} />
+      </div>
       <h1>{lives}</h1>
-
-      <Sound
-        url={bgMusic}
-        playStatus={
-          isPlaying
-            ? Sound.status.PLAYING
-            : Sound.status.PAUSED
-        }
-        autoLoad={true}
+      <ReactHowler
+        src={bgMusic}
+        playing={isPlaying}
+        preload={true}
         loop={true}
       />
-      <h1 className='runningCount'>{runningCount}</h1>
+      {/*  */}
+      <h1 className='runningCount'>
+        Combo: {runningCount}
+      </h1>
       <div className='container '>
-        {isLoading ? (
+        {!startGame ? (
+          <div>
+            <h1 onClick={handleStart} className=''>
+              click here to start..
+            </h1>
+          </div>
+        ) : (
           <div className='incomingContainer '>
             <p className='Character'>
               <span className='Character-out'>
@@ -147,10 +176,18 @@ function App() {
               <span>{incomingChars}</span>
             </p>
           </div>
-        ) : (
-          <h1>loading..</h1>
         )}
       </div>
+      <button
+        onClick={() => {
+          {
+            setIndex(index + 1)
+            console.log(index)
+          }
+        }}
+      >
+        change
+      </button>
     </div>
   )
 }
