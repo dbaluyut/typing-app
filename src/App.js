@@ -42,17 +42,13 @@ function App() {
       // setLivesGoal((livesGoal) => livesGoal + 2)
     }
 
-    if (lives <= 0 || !isLoading) {
+    if (lives <= 0 || !startGame) {
       console.log('pause')
       setIsPlaying(false)
-    } else if (lives > 0 && isLoading) {
+    } else if (lives > 0 && startGame) {
       setIsPlaying(true)
     }
-  }, [lives, ghostCount])
-
-  // useEffect(() => {
-  //   isPlaying ? playTest() : stop()
-  // }, [isPlaying])
+  }, [lives, ghostCount, startGame])
 
   const [outgoingChars, setOutgoingChars] = useState('')
   const [currentChar, setCurrentChar] = useState(
@@ -121,8 +117,6 @@ function App() {
     }
   })
 
-  const [playTest, { stop }] = useSound(bgMusic)
-
   function handleStart() {
     // playTest()
     setStartGame(true)
@@ -143,42 +137,45 @@ function App() {
       <div id='vidWrapper'>
         <BgVideo index={index} />
       </div>
-      <h1>{lives}</h1>
-      <ReactHowler
-        src={bgMusic}
-        playing={isPlaying}
-        preload={true}
-        loop={true}
-      />
-      {/*  */}
-      <h1 className='runningCount'>
-        Combo: {runningCount}
-      </h1>
-      <div className='container '>
-        {!startGame ? (
-          <div>
-            <h1 onClick={handleStart} className=''>
-              click here to start..
-            </h1>
-          </div>
-        ) : (
-          <div className='incomingContainer '>
-            <p className='Character'>
-              <span className='Character-out'>
-                {outgoingChars}
-              </span>
-              <span
-                className='Character-current'
-                id='cursor'
-              >
-                {currentChar}
-              </span>
-              <span>{incomingChars}</span>
-            </p>
-          </div>
-        )}
+      <div id='appWrapper'>
+        <h1 id='lives'>Lives: {lives}</h1>
+        <ReactHowler
+          src={bgMusic}
+          playing={isPlaying}
+          preload={true}
+          loop={true}
+        />
+        {/*  */}
+
+        <div className='container '>
+          {!startGame ? (
+            <div>
+              <h1 onClick={handleStart} className=''>
+                click here to start..
+              </h1>
+            </div>
+          ) : (
+            <div className='incomingContainer '>
+              <p className='Character'>
+                <span className='Character-out'>
+                  {outgoingChars}
+                </span>
+                <span
+                  className='Character-current'
+                  id='cursor'
+                >
+                  {currentChar}
+                </span>
+                <span>{incomingChars}</span>
+              </p>
+            </div>
+          )}
+        </div>
+        <h1 className='runningCount' ssi>
+          Combo: {runningCount}
+        </h1>
       </div>
-      <button
+      {/* <button
         onClick={() => {
           {
             setIndex(index + 1)
@@ -187,7 +184,7 @@ function App() {
         }}
       >
         change
-      </button>
+      </button> */}
     </div>
   )
 }

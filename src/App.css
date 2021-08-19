@@ -49,7 +49,7 @@
 }
 
 .container {
-  width: 80%;
+  width: 100%;
   background: #00000070;
   position: relative;
   padding: 2rem;
@@ -93,4 +93,20 @@ p {
   z-index: -99;
   width: 100%;
   height: 100%;
+}
+
+.runningCount {
+  align-self: flex-end;
+}
+
+#appWrapper {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#lives {
+  align-self: flex-start;
 }
