@@ -8,6 +8,7 @@ import useKeyPress from './hooks/useKeyPress'
 import { script } from './typing-scripts/script1'
 import bgMusic from './bg-music/test2.mp3'
 import BgVideo from './components/BgVideo'
+import BounceLoader from 'react-spinners/BounceLoader'
 // import axios from 'axios'
 
 import './App.css'
@@ -144,16 +145,28 @@ function App() {
           playing={isPlaying}
           preload={true}
           loop={true}
+          onLoad={() => setIsloading(false)}
         />
         {/*  */}
 
         <div className='container '>
           {!startGame ? (
-            <div>
-              <h1 onClick={handleStart} className=''>
-                click here to start..
-              </h1>
-            </div>
+            <>
+              {isLoading ? (
+                <div id='loader'>
+                  <BounceLoader
+                    color='white'
+                    loading={isLoading}
+                  />
+                </div>
+              ) : (
+                <div>
+                  <h1 onClick={handleStart} className=''>
+                    click here to start..
+                  </h1>
+                </div>
+              )}
+            </>
           ) : (
             <div className='incomingContainer '>
               <p className='Character'>

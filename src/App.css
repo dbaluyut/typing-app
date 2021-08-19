@@ -110,3 +110,9 @@ p {
 #lives {
   align-self: flex-start;
 }
+
+#loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
