@@ -146,6 +146,7 @@ function App() {
           preload={true}
           loop={true}
           onLoad={() => setIsloading(false)}
+          html5={true}
         />
         {/*  */}
 
