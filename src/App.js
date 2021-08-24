@@ -1,18 +1,17 @@
 import { useState, useEffect } from 'react'
-import useSound from 'use-sound'
 import ReactHowler from 'react-howler'
 
 import useKeyPress from './hooks/useKeyPress'
 // import useStickyState from './hooks/useStickyState'
 // import getAnimeQuote from './typing-scripts/getAnimeQuote'
-import { script } from './typing-scripts/script1'
+// import { script } from './typing-scripts/script1'
+import { script } from './typing-scripts/great-gatsby'
 import bgMusic from './bg-music/test2.mp3'
 import BgVideo from './components/BgVideo'
 import BounceLoader from 'react-spinners/BounceLoader'
 // import axios from 'axios'
 
 import './App.css'
-// import BgMusic from './bg-music/BgMusic'
 
 function App() {
   window.addEventListener('keydown', function (e) {
@@ -22,7 +21,7 @@ function App() {
   })
 
   // states
-
+  const [cropIndex, setCropIndex] = useState(100)
   const [par, setPar] = useState(script)
   const [index, setIndex] = useState(1)
   // running count state
@@ -30,7 +29,6 @@ function App() {
   const [ghostCount, setGhostCount] = useState(0)
   const [lives, setLives] = useState(8)
   // const [livesGoal, setLivesGoal] = useState(1)
-  const [quote, setQuote] = useState('')
   const [startGame, setStartGame] = useState(false)
   // sound
 
@@ -56,7 +54,7 @@ function App() {
     par.charAt(0)
   )
   const [incomingChars, setIncomingChars] = useState(
-    par.substr(1)
+    par.substr(1, cropIndex)
   )
   // keypress
   useKeyPress((key) => {
@@ -84,6 +82,8 @@ function App() {
         updatedIncomingChars = incomingChars.substring(1)
 
         setIncomingChars(updatedIncomingChars)
+        console.log(incomingChars)
+        setCropIndex((setCropIndex) => setCropIndex + 1)
       } else {
         setRunningCount(0)
         setGhostCount(0)
@@ -98,12 +98,6 @@ function App() {
       let cbOffset = cursorBox.offsetTop //32
       let lastOffset = 32 //32
       let scrollBy = 0
-      // if (cbOffset > lastOffset) {
-      //   let scrollAm = cbOffset - lastOffset;
-      //   scrollBy += scrollAm;
-      //   lastOffset += scrollAm;
-      //   greenBox.scrollTop = scrollBy;
-      // }
 
       function scrollBy1Line(refEl, parentEl) {
         let currentOffset = refEl.offsetTop
