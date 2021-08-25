@@ -21,14 +21,17 @@ function BgVideo({ index }) {
   let currentBG = videoLinks[ci]
 
   function changeBG() {
-    setCI(ci + 1)
-    console.log(ci)
+    for (let i = 1; i < els.length; i++) {
+      setTimeout(function () {
+        setCI((ci) => ci + 1)
+        console.log(ci)
+      }, 3000)
+    }
   }
 
   useEffect(() => {
-    setTimeout(changeBG, 1000)
-  }, [])
-
+    // setTimeout(changeBG, 10000)
+  }, [ci])
   return (
     <video playsInline autoPlay muted loop id='bgVideoLoop'>
       <source src={currentBG}></source>
