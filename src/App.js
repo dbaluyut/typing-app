@@ -30,7 +30,7 @@ function App() {
     'start'
   )
   const [cropIndex, setCropIndex] = useStickyState(
-    100,
+    300,
     'end'
   )
   const [par, setPar] = useState(script)
@@ -45,6 +45,10 @@ function App() {
 
   const [isPlaying, setIsPlaying] = useState(false)
   const [isLoading, setIsloading] = useState(true)
+  const [incomingChars, setIncomingChars] = useStickyState(
+    par.substr(cropStart, cropIndex),
+    'incoming'
+  )
   useEffect(() => {
     if (ghostCount === 10) {
       setGhostCount(0)
@@ -58,16 +62,16 @@ function App() {
     } else if (lives > 0 && startGame) {
       setIsPlaying(true)
     }
-  }, [lives, ghostCount, startGame])
+  }, [lives, ghostCount, startGame, incomingChars])
 
   const [outgoingChars, setOutgoingChars] = useStickyState(
     '',
     'outgoing'
   )
-  const [incomingChars, setIncomingChars] = useStickyState(
-    par.substr(cropStart, cropIndex),
-    'incoming'
-  )
+  // const [incomingChars, setIncomingChars] = useStickyState(
+  //   par.substr(cropStart, cropIndex),
+  //   'incoming'
+  // )
   const [currentChar, setCurrentChar] = useStickyState(
     par.charAt(ccCrop),
     'test'
@@ -109,16 +113,16 @@ function App() {
       let lastOffset = 32 //32
       let scrollBy = 0
 
-      function scrollBy1Line(refEl, parentEl) {
+      function scrollBy1Line(refEl, parentEl, sb) {
         let currentOffset = refEl.offsetTop
         if (currentOffset > lastOffset) {
           let scrollAmount = currentOffset - lastOffset
-          scrollBy += scrollAmount
-          lastOffset += scrollBy
-          parentEl.scrollTop = scrollBy
+          sb += scrollAmount
+          lastOffset += sb
+          parentEl.scrollTop = sb
         }
       }
-      scrollBy1Line(cursorBox, greenBox)
+      scrollBy1Line(cursorBox, greenBox, scrollBy)
     }
   })
 
