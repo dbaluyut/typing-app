@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import ReactHowler from 'react-howler'
 
 import useKeyPress from './hooks/useKeyPress'
-// import useStickyState from './hooks/useStickyState'
+import useStickyState from './hooks/useStickyState'
 // import getAnimeQuote from './typing-scripts/getAnimeQuote'
 // import { script } from './typing-scripts/script1'
 import { script } from './typing-scripts/great-gatsby'
@@ -21,7 +21,18 @@ function App() {
   })
 
   // states
-  const [cropIndex, setCropIndex] = useState(100)
+  const [ccCrop, setCccrop] = useStickyState(
+    0,
+    'current char'
+  )
+  const [cropStart, setCropStart] = useStickyState(
+    1,
+    'start'
+  )
+  const [cropIndex, setCropIndex] = useStickyState(
+    300,
+    'end'
+  )
   const [par, setPar] = useState(script)
   const [index, setIndex] = useState(1)
   // running count state
@@ -49,12 +60,16 @@ function App() {
     }
   }, [lives, ghostCount, startGame])
 
-  const [outgoingChars, setOutgoingChars] = useState('')
-  const [currentChar, setCurrentChar] = useState(
-    par.charAt(0)
+  const [outgoingChars, setOutgoingChars] = useStickyState(
+    '',
+    'outgoing'
   )
-  const [incomingChars, setIncomingChars] = useState(
-    par.substr(1, cropIndex)
+  const [currentChar, setCurrentChar] = useState(
+    par.charAt(ccCrop)
+  )
+  const [incomingChars, setIncomingChars] = useStickyState(
+    par.substr(cropStart, cropIndex),
+    'incoming'
   )
   // keypress
   useKeyPress((key) => {
@@ -79,12 +94,17 @@ function App() {
         setCurrentChar(incomingChars.charAt(0))
 
         //6
-        updatedIncomingChars = incomingChars.substring(1)
+        setCropIndex(cropIndex + 1)
+
+        setCropStart(cropStart + 1)
+        setCccrop(ccCrop + 1)
+        updatedIncomingChars = par.substring(
+          cropStart,
+          cropIndex
+        )
 
         setIncomingChars(updatedIncomingChars)
-        console.log(incomingChars)
-        setCropIndex((setCropIndex) => setCropIndex + 1)
-      } else {
+      } else if (lives > 0) {
         setRunningCount(0)
         setGhostCount(0)
         setLives(lives - 1)
