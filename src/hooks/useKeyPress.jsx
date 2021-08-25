@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react"
 
 //1
 const useKeyPress = (callback) => {
@@ -14,18 +14,18 @@ const useKeyPress = (callback) => {
       }
     }
     //5
-    const upHandler = () => {
-      setKeyPressed(null)
-    }
+    // const upHandler = () => {
+    //   setKeyPressed(null)
+    // }
 
     //6
-    window.addEventListener('keydown', downHandler)
-    window.addEventListener('keyup', upHandler)
+    window.addEventListener("keydown", downHandler)
+    // window.addEventListener('keyup', upHandler)
 
     return () => {
       //7
-      window.removeEventListener('keydown', downHandler)
-      window.removeEventListener('keyup', upHandler)
+      window.removeEventListener("keydown", downHandler)
+      // window.removeEventListener('keyup', upHandler)
     }
   })
   //8
