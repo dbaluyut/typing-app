@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/typing-app/static/css/main.f0210a2c.chunk.css",
-    "main.js": "/typing-app/static/js/main.77e9c771.chunk.js",
-    "main.js.map": "/typing-app/static/js/main.77e9c771.chunk.js.map",
+    "main.js": "/typing-app/static/js/main.26eeab48.chunk.js",
+    "main.js.map": "/typing-app/static/js/main.26eeab48.chunk.js.map",
     "runtime-main.js": "/typing-app/static/js/runtime-main.11a158fe.js",
     "runtime-main.js.map": "/typing-app/static/js/runtime-main.11a158fe.js.map",
     "static/js/2.6cc2c957.chunk.js": "/typing-app/static/js/2.6cc2c957.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.11a158fe.js",
     "static/js/2.6cc2c957.chunk.js",
     "static/css/main.f0210a2c.chunk.css",
-    "static/js/main.77e9c771.chunk.js"
+    "static/js/main.26eeab48.chunk.js"
   ]
 }
